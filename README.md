@@ -14,6 +14,8 @@ Apply Feature Transformation techniques to all the features of the data set
 Print the transformed features
 ## PPROGRAM:
 ~~~
+~~~
+~~~
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
@@ -72,5 +74,16 @@ sm.qqplot(df2.HighlyPositiveSkew,fit=True,line='45')
 
 plt.show()
 ~~~
-RESULT:
+## OUTPUT:
+![img](https://github.com/vijay21500269/Ex-06-Feature-Transformation/blob/main/ds1.png)
+![img](https://github.com/vijay21500269/Ex-06-Feature-Transformation/blob/main/ds2.png)
+![img](https://github.com/vijay21500269/Ex-06-Feature-Transformation/blob/main/ds3.png)
+![img](https://github.com/vijay21500269/Ex-06-Feature-Transformation/blob/main/ds4.png)
+![img](https://github.com/vijay21500269/Ex-06-Feature-Transformation/blob/main/ds5.png)
+![img](https://github.com/vijay21500269/Ex-06-Feature-Transformation/blob/main/ds6.png)
+![img](https://github.com/vijay21500269/Ex-06-Feature-Transformation/blob/main/ds7.png)
+![img](https://github.com/vijay21500269/Ex-06-Feature-Transformation/blob/main/ds8.png)
+![img](https://github.com/vijay21500269/Ex-06-Feature-Transformation/blob/main/ds9.png)
+![img](https://github.com/vijay21500269/Ex-06-Feature-Transformation/blob/main/ds10.png)
+## RESULT:
 Thus feature transformation is done for the given dataset.
