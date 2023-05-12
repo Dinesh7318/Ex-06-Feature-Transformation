@@ -1,111 +1,99 @@
 # Ex-06-Feature-Transformation
-
-## AIM
-
+# AIM:
 To read the given data and perform Feature Transformation process and save the data to a file.
 
-## EXPLANATION
-
+# EXPLANATION:
 Feature Transformation is a technique by which we can boost our model performance. Feature transformation is a mathematical transformation in which we apply a mathematical formula to a particular column(feature) and transform the values which are useful for our further analysis.
 
-## ALGORITHM
-
-### STEP 1:
+# ALGORITHM:
+## Step 1:
 Read the given Data
 
-### STEP 2:
+## Step 2: 
 Clean the Data Set using Data Cleaning Process
 
-### STEP 3:
+## Step 3:
 Apply Feature Transformation techniques to all the features of the data set
 
-### STEP 4:
-Print the transformed features
+## Step 4: 
+Save the data to the file
 
-## PROGRAM:
-
-```
+# PROGRAM:
 ```
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 import statsmodels.api as sm
 import scipy.stats as stats
-from sklearn.preprocessing import QuantileTransformer
-
-df=pd.read_csv("data_trans.csv")
-df
-
-sm.qqplot(df.HighlyPositiveSkew,fit=True,line='45')
+df = pd.read_csv("/content/Data_to_Transform.csv")
+print(df)
+df.head()
+df.isnull().sum()
+df.info()
+df.describe()
+df1 = df.copy()
+sm.qqplot(df1.HighlyPositiveSkew,fit=True,line='45')
 plt.show()
-
-sm.qqplot(df.HighlyNegativeSkew,fit=True,line='45')
+sm.qqplot(df1.HighlyNegativeSkew,fit=True,line='45')
 plt.show()
-
-sm.qqplot(df.ModeratePositiveSkew,fit=True,line='45')
+sm.qqplot(df1.ModeratePositiveSkew,fit=True,line='45')
 plt.show()
-
-sm.qqplot(df.ModerateNegativeSkew,fit=True,line='45')
+sm.qqplot(df1.ModerateNegativeSkew,fit=True,line='45')
 plt.show()
-
-df['HighlyPositiveSkew']=np.log(df.HighlyPositiveSkew)
-sm.qqplot(df.HighlyPositiveSkew,fit=True,line='45')
+df1['HighlyPositiveSkew'] = np.log(df1.HighlyPositiveSkew)
+sm.qqplot(df1.HighlyPositiveSkew,fit=True,line='45')
 plt.show()
-
-df['HighlyNegativeSkew']=np.log(df.HighlyNegativeSkew)
-sm.qqplot(df.HighlyPositiveSkew,fit=True,line='45')
-plt.show()
-
-df['ModeratePositiveSkew_1'], parameters=stats.yeojohnson(df.ModeratePositiveSkew)
-sm.qqplot(df.ModeratePositiveSkew_1,fit=True,line='45')
-plt.show()
-
-df['ModerateNegativeSkew_1'], parameters=stats.yeojohnson(df.ModerateNegativeSkew)
-sm.qqplot(df.ModerateNegativeSkew_1,fit=True,line='45')
-plt.show()
-
-from sklearn.preprocessing import PowerTransformer
-transformer=PowerTransformer("yeo-johnson")
-df['ModerateNegativeSkew_2']=pd.DataFrame(transformer.fit_transform(df[['ModerateNegativeSkew']]))
-sm.qqplot(df.ModerateNegativeSkew_2,fit=True,line='45')
-plt.show()
-
-from sklearn.preprocessing import QuantileTransformer
-qt= QuantileTransformer(output_distribution = 'normal')
-df['ModerateNegativeSkew_2']=pd.DataFrame(qt.fit_transform(df[['ModerateNegativeSkew']]))
-
-sm.qqplot(df.ModerateNegativeSkew_2,fit=True,line='45')
-plt.show()
-
-df2=df.copy()
-
-df2['HighlyPositiveSkew']= 1/df2.HighlyPositiveSkew
+df2 = df.copy()
+df2['HighlyPositiveSkew'] = 1/df2.HighlyPositiveSkew
 sm.qqplot(df2.HighlyPositiveSkew,fit=True,line='45')
-
 plt.show()
+df3 = df.copy()
+df3['HighlyPositiveSkew'] = df3.HighlyPositiveSkew**(1/1.2)
+sm.qqplot(df2.HighlyPositiveSkew,fit=True,line='45')
+plt.show()
+df4 = df.copy()
+df4['ModeratePositiveSkew_1'],parameters =stats.yeojohnson(df4.ModeratePositiveSkew)
+sm.qqplot(df4.ModeratePositiveSkew_1,fit=True,line='45')
+plt.show()
+from sklearn.preprocessing import PowerTransformer 
+trans = PowerTransformer("yeo-johnson")
+df5 = df.copy()
+df5['ModerateNegativeSkew_1'] = pd.DataFrame(trans.fit_transform(df5[['ModerateNegativeSkew']]))
+sm.qqplot(df5['ModerateNegativeSkew_1'],line='45')
+plt.show()
+from sklearn.preprocessing import QuantileTransformer
+qt = QuantileTransformer(output_distribution = 'normal')
+df5['ModerateNegativeSkew_2'] = pd.DataFrame(qt.fit_transform(df5[['ModerateNegativeSkew']]))
+sm.qqplot(df5['ModerateNegativeSkew_2'],line='45')
+plt.show()
+
 ```
+# OUTPUT:
 
-## OUTPUT:
-![image](https://user-images.githubusercontent.com/94154683/197689770-3a3eaeb0-893e-44c8-8f68-44e32a2649b0.png)
+## Feature Transformation - Data_to_Transform.csv:
 
-![image](https://user-images.githubusercontent.com/94154683/197689814-3694160d-908f-4231-a0db-650ff010af04.png)
+![output](i1.jpg)
+![output](i2.jpg)
+![output](i3.jpg)
+![output](i4.jpg)
+![output](i5.jpg)
 
-![image](https://user-images.githubusercontent.com/94154683/197689850-6e468f71-c5b0-47b8-ac0d-b867332e873f.png)
+## Log Transformation:
 
-![image](https://user-images.githubusercontent.com/94154683/197689891-94aeffa0-8937-455c-871e-6c7ddfa8ff51.png)
+![output](i6.jpg)
+## Reciprocal Transformation:
 
-![image](https://user-images.githubusercontent.com/94154683/197689932-daa0397d-917c-40e0-859b-62ce48cd7d8f.png)
+![output](i7.jpg)
+## SquareRoot Transformation:
 
-![image](https://user-images.githubusercontent.com/94154683/197689974-df9a8993-a064-4a73-9564-0e9bb3b7d61e.png)
+![output](i8.jpg)
+## Power Transformation:
 
-![image](https://user-images.githubusercontent.com/94154683/197690077-9970da20-7ff7-4b8b-bf25-0aa8478de4ea.png)
+![output](i9.jpg)
+![output](i10.jpg)
+## Quantile Transformation:
 
-![image](https://user-images.githubusercontent.com/94154683/197690168-8e6c3d09-2046-4f34-b404-2f3a55de7781.png)
+![output](i11.jpg)
 
-![image](https://user-images.githubusercontent.com/94154683/197690206-127a5a92-b62f-4456-9d54-61b3fc83e642.png)
-
-![image](https://user-images.githubusercontent.com/94154683/197690242-c3a3e2e2-9150-45ba-a9c3-5fb35ad47407.png)
-
-
-## RESULT:
-Thus feature transformation is done for the given dataset.
+# RESULT:
+Thus the Feature Transformation for the given datasets had been executed successfully.
